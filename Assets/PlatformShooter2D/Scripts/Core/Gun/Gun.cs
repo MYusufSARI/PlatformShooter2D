@@ -2,11 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Gun : MonoBehaviour
 {
-    public Transform BulletSpawnPoint => _bulletSpawnPoint;
-
     [Header(" Elements ")]
     [SerializeField] private Transform _bulletSpawnPoint;
     [SerializeField] private Bullet _bulletPrefab;
@@ -18,6 +17,10 @@ public class Gun : MonoBehaviour
     [SerializeField] private float _gunFireCD = 0.5f;
     private Vector2 _mousePos;
     private float _lastFireTime = 0f;
+
+
+    [Header(" Pool ")]
+    private ObjectPool<Bullet> _bulletPool;
 
 
     [Header(" ReadOnly ")]
@@ -37,6 +40,8 @@ public class Gun : MonoBehaviour
 
     private void Start()
     {
+        CreateBulletPool();
+
         mainCamera = Camera.main;
     }
 
@@ -65,6 +70,30 @@ public class Gun : MonoBehaviour
     }
 
 
+    public void ReleaseBulletFromPool(Bullet bullet)
+    {
+        _bulletPool.Release(bullet);
+    }
+
+
+    private void CreateBulletPool()
+    {
+        _bulletPool = new ObjectPool<Bullet>(() =>
+        {
+            return Instantiate(_bulletPrefab);
+        }, bullet =>
+        {
+            bullet.gameObject.SetActive(true);
+        }, bullet =>
+        {
+            bullet.gameObject.SetActive(false);
+        }, bullet =>
+        {
+            Destroy(bullet);
+        });
+    }
+
+
     private void Shoot()
     {
         if (Input.GetMouseButton(0) && Time.time >= _lastFireTime)
@@ -76,9 +105,9 @@ public class Gun : MonoBehaviour
 
     private void ShootProjectile()
     {
-        Bullet newBullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, Quaternion.identity);
+        Bullet newBullet = _bulletPool.Get();
 
-        newBullet.Initialize(_bulletSpawnPoint.position, _mousePos);
+        newBullet.Initialize(this, _bulletSpawnPoint.position, _mousePos);
     }
 
 

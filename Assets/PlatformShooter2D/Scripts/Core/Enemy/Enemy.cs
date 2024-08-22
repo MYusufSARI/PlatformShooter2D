@@ -3,19 +3,24 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header(" Settings ")]
     [SerializeField] private float _moveSpeed = 3f;
     [SerializeField] private float _jumpForce = 7f;
     [SerializeField] private float _jumpInterval = 4f;
     [SerializeField] private float _changeDirectionInterval = 3f;
-
     private int _currentDirection;
 
+
+    [Header(" Elements ")]
     private Rigidbody2D _rigidBody;
+
+
 
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
     }
+
 
     private void Start()
     {
@@ -23,16 +28,19 @@ public class Enemy : MonoBehaviour
         StartCoroutine(RandomJump());
     }
 
+
     private void FixedUpdate()
     {
         Move();
     }
+
 
     private void Move()
     {
         Vector2 newVelocity = new(_currentDirection * _moveSpeed, _rigidBody.velocity.y);
         _rigidBody.velocity = newVelocity;
     }
+
 
     private IEnumerator ChangeDirection()
     {
@@ -42,6 +50,7 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(_changeDirectionInterval);
         }
     }
+
 
     private IEnumerator RandomJump()
     {

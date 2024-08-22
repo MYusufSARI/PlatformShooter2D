@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    [Header(" Settings ")]
     [SerializeField] private int _startingHealth = 3;
-
     private int _currentHealth;
+
+
 
     private void Start()
     {
         ResetHealth();
     }
 
+
     public void ResetHealth()
     {
         _currentHealth = _startingHealth;
     }
+
 
     public void TakeDamage(int amount)
     {

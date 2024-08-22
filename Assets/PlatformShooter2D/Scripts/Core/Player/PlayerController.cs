@@ -6,13 +6,16 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
 
+    [Header(" Settings ")]
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _jumpStrength = 7f;
-
     private bool _isGrounded = false;
     private Vector2 _movement;
 
+    [Header(" Elements ")]
     private Rigidbody2D _rigidBody;
+
+
 
     public void Awake()
     {
@@ -21,6 +24,7 @@ public class PlayerController : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody2D>();
     }
 
+
     private void Update()
     {
         GatherInput();
@@ -28,10 +32,12 @@ public class PlayerController : MonoBehaviour
         HandleSpriteFlip();
     }
 
+
     private void FixedUpdate()
     {
         Move();
     }
+
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -41,6 +47,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     private void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -49,10 +56,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     public bool IsFacingRight()
     {
         return transform.eulerAngles.y == 0;
     }
+
 
     private void GatherInput()
     {
@@ -60,11 +69,12 @@ public class PlayerController : MonoBehaviour
         _movement = new Vector2(moveX * _moveSpeed, _rigidBody.velocity.y);
     }
 
+
     private void Move()
     {
-
         _rigidBody.velocity = _movement;
     }
+
 
     private void Jump()
     {
@@ -73,6 +83,7 @@ public class PlayerController : MonoBehaviour
             _rigidBody.AddForce(Vector2.up * _jumpStrength, ForceMode2D.Impulse);
         }
     }
+
 
     private void HandleSpriteFlip()
     {
