@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _extraGravity = 700f;
     [SerializeField] private float _gravityDelay = 0.2f;
     private float _timeInAir;
+    private bool _doublejumpAvailable;
 
     [Header(" Elements ")]
     private Rigidbody2D _rigidBody;
