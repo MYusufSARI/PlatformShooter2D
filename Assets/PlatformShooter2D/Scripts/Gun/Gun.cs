@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,11 +17,14 @@ public class Gun : MonoBehaviour
     private Vector2 _mousePos;
     private float _lastFireTime = 0f;
 
+    [Header(" Events ")]
+    public static Action OnShoot;
+
 
 
     private void Start()
     {
-        mainCamera = Camera.main;   
+        mainCamera = Camera.main;
     }
 
 
@@ -32,21 +36,40 @@ public class Gun : MonoBehaviour
     }
 
 
+    private void OnEnable()
+    {
+        OnShoot += ShootProjectile;
+        OnShoot += ResetLastFireTime;
+    }
+
+
+    private void OnDisable()
+    {
+        OnShoot -= ShootProjectile;
+        OnShoot -= ResetLastFireTime;
+    }
+
+
     private void Shoot()
     {
-        if (Input.GetMouseButton(0) && Time.time >= _lastFireTime) {
-            ShootProjectile();
+        if (Input.GetMouseButton(0) && Time.time >= _lastFireTime)
+        {
+            OnShoot?.Invoke();
         }
     }
 
 
     private void ShootProjectile()
     {
-        _lastFireTime = Time.time + _gunFireCD;
-
         Bullet newBullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, Quaternion.identity);
 
         newBullet.Initialize(_bulletSpawnPoint.position, _mousePos);
+    }
+
+
+    private void ResetLastFireTime()
+    {
+        _lastFireTime = Time.time + _gunFireCD;
     }
 
 

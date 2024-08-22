@@ -31,7 +31,8 @@ public class Bullet : MonoBehaviour
         _rigidBody.velocity = _fireDirection * _moveSpeed;
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerEnter2D(Collider2D other)
+    {
         Health health = other.gameObject.GetComponent<Health>();
         health?.TakeDamage(_damageAmount);
         Destroy(this.gameObject);

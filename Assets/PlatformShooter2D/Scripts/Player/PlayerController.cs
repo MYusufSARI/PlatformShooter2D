@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D _rigidBody;
 
-    public void Awake() {
+    public void Awake()
+    {
         if (Instance == null) { Instance = this; }
 
         _rigidBody = GetComponent<Rigidbody2D>();
@@ -27,7 +28,8 @@ public class PlayerController : MonoBehaviour
         HandleSpriteFlip();
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         Move();
     }
 
@@ -58,14 +60,16 @@ public class PlayerController : MonoBehaviour
         _movement = new Vector2(moveX * _moveSpeed, _rigidBody.velocity.y);
     }
 
-    private void Move() {
+    private void Move()
+    {
 
         _rigidBody.velocity = _movement;
     }
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded) {
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+        {
             _rigidBody.AddForce(Vector2.up * _jumpStrength, ForceMode2D.Impulse);
         }
     }
@@ -82,5 +86,5 @@ public class PlayerController : MonoBehaviour
         {
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
         }
-    } 
+    }
 }

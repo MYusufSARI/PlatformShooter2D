@@ -17,7 +17,8 @@ public class Enemy : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody2D>();
     }
 
-    private void Start() {
+    private void Start()
+    {
         StartCoroutine(ChangeDirection());
         StartCoroutine(RandomJump());
     }
@@ -42,7 +43,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private IEnumerator RandomJump() 
+    private IEnumerator RandomJump()
     {
         while (true)
         {

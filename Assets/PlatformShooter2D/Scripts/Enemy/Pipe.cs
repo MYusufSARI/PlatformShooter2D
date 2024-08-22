@@ -7,11 +7,13 @@ public class Pipe : MonoBehaviour
     [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private float _spawnTimer = 3f;
 
-    private void Start() {
+    private void Start()
+    {
         StartCoroutine(SpawnRoutine());
     }
-    
-    private IEnumerator SpawnRoutine() {
+
+    private IEnumerator SpawnRoutine()
+    {
         while (true)
         {
             Enemy enemy = Instantiate(_enemyPrefab, transform.position, transform.rotation);
