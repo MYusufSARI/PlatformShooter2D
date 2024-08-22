@@ -11,15 +11,28 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform _bulletSpawnPoint;
     [SerializeField] private Bullet _bulletPrefab;
     private Camera mainCamera;
+    private Animator _animator;
+
 
     [Header(" Settings ")]
     [SerializeField] private float _gunFireCD = 0.5f;
     private Vector2 _mousePos;
     private float _lastFireTime = 0f;
 
+
+    [Header(" ReadOnly ")]
+    private static readonly int FIRE_HASH = Animator.StringToHash("A_Fire");
+
+
     [Header(" Events ")]
     public static Action OnShoot;
 
+
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
 
     private void Start()
@@ -40,6 +53,7 @@ public class Gun : MonoBehaviour
     {
         OnShoot += ShootProjectile;
         OnShoot += ResetLastFireTime;
+        OnShoot += FireAnimation;
     }
 
 
@@ -47,6 +61,7 @@ public class Gun : MonoBehaviour
     {
         OnShoot -= ShootProjectile;
         OnShoot -= ResetLastFireTime;
+        OnShoot -= FireAnimation;
     }
 
 
@@ -64,6 +79,12 @@ public class Gun : MonoBehaviour
         Bullet newBullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, Quaternion.identity);
 
         newBullet.Initialize(_bulletSpawnPoint.position, _mousePos);
+    }
+
+
+    private void FireAnimation()
+    {
+        _animator.Play(FIRE_HASH, 0, 0f);
     }
 
 
