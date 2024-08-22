@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpStrength = 7f;
     [SerializeField] private float _extraGravity = 700f;
     [SerializeField] private float _gravityDelay = 0.2f;
-    private float _timeInAir;
+    [SerializeField] private float _coyoteTime = 0.5f;
+    private float _timeInAir, _coyoteTimer;
     private bool _doublejumpAvailable;
 
     [Header(" Elements ")]
@@ -57,6 +58,8 @@ public class PlayerController : MonoBehaviour
         GatherInput();
 
         Movement();
+
+        CoyoteTimer();
 
         HandleJump();
 
@@ -135,16 +138,35 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (_doublejumpAvailable)
+        if (CheckGrounded())
+        {
+            OnJump?.Invoke();
+        }
+
+        else if (_coyoteTimer > 0f)
+        {
+            OnJump?.Invoke();
+        }
+
+        else if (_doublejumpAvailable)
         {
             _doublejumpAvailable = false;
             OnJump?.Invoke();
         }
+    }
 
-        else if (CheckGrounded())
+
+    private void CoyoteTimer()
+    {
+        if (CheckGrounded())
         {
+            _coyoteTimer = _coyoteTime;
             _doublejumpAvailable = true;
-            OnJump?.Invoke();
+        }
+
+        else
+        {
+            _coyoteTimer -= Time.deltaTime;
         }
     }
 
@@ -154,6 +176,8 @@ public class PlayerController : MonoBehaviour
         _rigidBody.velocity = Vector2.zero;
 
         _timeInAir = 0f;
+
+        _coyoteTimer = 0f;
 
         _rigidBody.AddForce(Vector2.up * _jumpStrength, ForceMode2D.Impulse);
     }
