@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using Cinemachine;
 
 public class Gun : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private Bullet _bulletPrefab;
     private Camera mainCamera;
     private Animator _animator;
+    private CinemachineImpulseSource _cmImpulseSource;
 
 
     [Header(" Settings ")]
@@ -34,6 +36,8 @@ public class Gun : MonoBehaviour
 
     private void Awake()
     {
+        _cmImpulseSource = GetComponent<CinemachineImpulseSource>();
+
         _animator = GetComponent<Animator>();
     }
 
@@ -59,6 +63,7 @@ public class Gun : MonoBehaviour
         OnShoot += ShootProjectile;
         OnShoot += ResetLastFireTime;
         OnShoot += FireAnimation;
+        OnShoot += GunScreenShake;
     }
 
 
@@ -67,6 +72,7 @@ public class Gun : MonoBehaviour
         OnShoot -= ShootProjectile;
         OnShoot -= ResetLastFireTime;
         OnShoot -= FireAnimation;
+        OnShoot -= GunScreenShake;
     }
 
 
@@ -122,6 +128,12 @@ public class Gun : MonoBehaviour
     private void ResetLastFireTime()
     {
         _lastFireTime = Time.time + _gunFireCD;
+    }
+
+
+    private void GunScreenShake()
+    {
+        _cmImpulseSource.GenerateImpulse();
     }
 
 
