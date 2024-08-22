@@ -90,7 +90,9 @@ public class Gun : MonoBehaviour
         }, bullet =>
         {
             Destroy(bullet);
-        });
+        }, false, 20, 40);
+        // 20 = Default size of the pool that will be created
+        // 40 = Max size of the pool that could be created
     }
 
 
