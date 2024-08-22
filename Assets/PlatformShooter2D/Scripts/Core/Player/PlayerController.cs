@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     [Header(" Elements ")]
     private Rigidbody2D _rigidBody;
 
+    [Header(" Data ")]
+    private PlayerInput _playerInput;
+    private FrameInput _frameInput;
+
 
 
     public void Awake()
@@ -25,6 +29,7 @@ public class PlayerController : MonoBehaviour
         if (Instance == null) { Instance = this; }
 
         _rigidBody = GetComponent<Rigidbody2D>();
+        _playerInput = GetComponent<PlayerInput>();
     }
 
 
@@ -66,8 +71,8 @@ public class PlayerController : MonoBehaviour
 
     private void GatherInput()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        _movement = new Vector2(moveX * _moveSpeed, _rigidBody.velocity.y);
+        _frameInput = _playerInput.FrameInput;
+        _movement = new Vector2(_frameInput.Move.x * _moveSpeed, _rigidBody.velocity.y);
     }
 
 

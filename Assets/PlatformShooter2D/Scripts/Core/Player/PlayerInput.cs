@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
+    public FrameInput FrameInput { get; private set; }
+
     [Header(" Data ")]
     private PlayerInputActions _playerInputActions;
     private InputAction _move;
@@ -34,6 +36,23 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        
+        FrameInput = GatherInput();
     }
+
+
+    private FrameInput GatherInput()
+    {
+        return new FrameInput
+        {
+            Move = _move.ReadValue<Vector2>(),
+            Jump = _jump.WasPressedThisFrame(),
+        };
+    }
+}
+
+public struct FrameInput
+{
+    public Vector2 Move;
+
+    public bool Jump;
 }
