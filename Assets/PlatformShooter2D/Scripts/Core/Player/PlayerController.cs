@@ -11,7 +11,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 _groundCheck;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private float _jumpStrength = 7f;
-    private bool _isGrounded = false;
+    [SerializeField] private float _extraGravity = 700f;
+    [SerializeField] private float _gravityDelay = 0.2f;
+    private float _timeInAir;
 
     [Header(" Elements ")]
     private Rigidbody2D _rigidBody;
@@ -42,6 +44,14 @@ public class PlayerController : MonoBehaviour
         Jump();
 
         HandleSpriteFlip();
+
+        GravityDelay();
+    }
+
+
+    private void FixedUpdate()
+    {
+        ExtraGravity();
     }
 
 
@@ -66,6 +76,28 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireCube(_feetTransform.position, _groundCheck);
     }
 
+
+    private void GravityDelay()
+    {
+        if (!CheckGrounded())
+        {
+            _timeInAir += Time.deltaTime;
+        }
+
+        else
+        {
+            _timeInAir = 0f;
+        }
+    }
+
+
+    private void ExtraGravity()
+    {
+        if (_timeInAir > _gravityDelay)
+        {
+            _rigidBody.AddForce(new Vector2(0f, -_extraGravity * Time.deltaTime));
+        }
+    }
 
     private void GatherInput()
     {
