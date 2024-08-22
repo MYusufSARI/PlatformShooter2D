@@ -73,18 +73,24 @@ public class PlayerController : MonoBehaviour
     {
         _frameInput = _playerInput.FrameInput;
         _movement = new Vector2(_frameInput.Move.x * _moveSpeed, _rigidBody.velocity.y);
+        
     }
 
 
     private void Move()
     {
-        _rigidBody.velocity = _movement;
+        _rigidBody.velocity = new Vector2(_movement.x, _rigidBody.velocity.y);
     }
 
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && CheckGrounded())
+        if (!_frameInput.Jump)
+        {
+            return;
+        }
+
+        if (CheckGrounded())
         {
             _rigidBody.AddForce(Vector2.up * _jumpStrength, ForceMode2D.Impulse);
         }
