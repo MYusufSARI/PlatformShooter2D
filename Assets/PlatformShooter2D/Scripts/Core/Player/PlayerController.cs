@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
+
+    [Header(" Events ")]
+    public static Action OnJump;
 
     [Header(" Settings ")]
     [SerializeField] private Transform _feetTransform;
@@ -36,13 +40,25 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void OnEnable()
+    {
+        OnJump += ApplyJumpForce;
+    }
+
+
+    private void OnDisable()
+    {
+        OnJump -= ApplyJumpForce;
+    }
+
+
     private void Update()
     {
         GatherInput();
 
         Movement();
 
-        Jump();
+        HandleJump();
 
         HandleSpriteFlip();
 
@@ -112,17 +128,34 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void Jump()
+    private void HandleJump()
     {
         if (!_frameInput.Jump)
         {
             return;
         }
 
-        if (CheckGrounded())
+        if (_doublejumpAvailable)
         {
-            _rigidBody.AddForce(Vector2.up * _jumpStrength, ForceMode2D.Impulse);
+            _doublejumpAvailable = false;
+            OnJump?.Invoke();
         }
+
+        else if (CheckGrounded())
+        {
+            _doublejumpAvailable = true;
+            OnJump?.Invoke();
+        }
+    }
+
+
+    private void ApplyJumpForce()
+    {
+        _rigidBody.velocity = Vector2.zero;
+
+        _timeInAir = 0f;
+
+        _rigidBody.AddForce(Vector2.up * _jumpStrength, ForceMode2D.Impulse);
     }
 
 
