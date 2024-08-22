@@ -10,10 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform _feetTransform;
     [SerializeField] private Vector2 _groundCheck;
     [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _jumpStrength = 7f;
     private bool _isGrounded = false;
-    private Vector2 _movement;
 
     [Header(" Elements ")]
     private Rigidbody2D _rigidBody;
@@ -21,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [Header(" Data ")]
     private PlayerInput _playerInput;
     private FrameInput _frameInput;
+    private Movement _movement;
 
 
 
@@ -30,20 +29,19 @@ public class PlayerController : MonoBehaviour
 
         _rigidBody = GetComponent<Rigidbody2D>();
         _playerInput = GetComponent<PlayerInput>();
+        _movement = GetComponent<Movement>();
     }
 
 
     private void Update()
     {
         GatherInput();
+
+        Movement();
+
         Jump();
+
         HandleSpriteFlip();
-    }
-
-
-    private void FixedUpdate()
-    {
-        Move();
     }
 
 
@@ -55,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     private bool CheckGrounded()
     {
-        Collider2D isGrounded = Physics2D.OverlapBox(_feetTransform.position, _groundCheck, 0f, _groundLayer);
+        var isGrounded = Physics2D.OverlapBox(_feetTransform.position, _groundCheck, 0f, _groundLayer);
 
         return isGrounded;
     }
@@ -72,14 +70,12 @@ public class PlayerController : MonoBehaviour
     private void GatherInput()
     {
         _frameInput = _playerInput.FrameInput;
-        _movement = new Vector2(_frameInput.Move.x * _moveSpeed, _rigidBody.velocity.y);
-        
     }
 
 
-    private void Move()
+    private void Movement()
     {
-        _rigidBody.velocity = new Vector2(_movement.x, _rigidBody.velocity.y);
+        _movement.SetCurrentDirection(_frameInput.Move.x);
     }
 
 
@@ -99,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleSpriteFlip()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (mousePosition.x < transform.position.x)
         {

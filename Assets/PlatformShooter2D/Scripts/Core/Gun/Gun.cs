@@ -14,20 +14,16 @@ public class Gun : MonoBehaviour
     private Animator _animator;
     private CinemachineImpulseSource _cmImpulseSource;
 
-
     [Header(" Settings ")]
     [SerializeField] private float _gunFireCD = 0.5f;
     private Vector2 _mousePos;
     private float _lastFireTime = 0f;
 
-
     [Header(" Pool ")]
     private ObjectPool<Bullet> _bulletPool;
 
-
     [Header(" ReadOnly ")]
     private static readonly int FIRE_HASH = Animator.StringToHash("A_Fire");
-
 
     [Header(" Events ")]
     public static Action OnShoot;
@@ -140,9 +136,9 @@ public class Gun : MonoBehaviour
     private void RotateCamera()
     {
         _mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = PlayerController.Instance.transform.InverseTransformPoint(_mousePos);
+        var direction = PlayerController.Instance.transform.InverseTransformPoint(_mousePos);
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.localRotation = Quaternion.Euler(0, 0, angle);
     }
 }

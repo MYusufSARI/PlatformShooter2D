@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviour
     private Gun _gun;
 
 
+
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
