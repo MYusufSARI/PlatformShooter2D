@@ -5,7 +5,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [Header(" Settings ")]
-    private float _moveSpeed = 10f;
+    [SerializeField] private float _moveSpeed = 10f;
     private float _moveX;
     private bool _canMove = true;
 
@@ -20,6 +20,7 @@ public class Movement : MonoBehaviour
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        _knockback = GetComponent<Knockback>();
     }
 
 
