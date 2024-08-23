@@ -41,8 +41,6 @@ public class Knockback : MonoBehaviour
 
     public void GetKnockedBack(Vector3 hitDirection, float knockbackThrust)
     {
-        Debug.Log("Knocked Back!");
-
         _hitDirection = hitDirection;
         _knockThrust = knockbackThrust;
 
