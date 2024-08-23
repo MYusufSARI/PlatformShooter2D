@@ -6,6 +6,7 @@ public class PlayerAnimations : MonoBehaviour
 {
     [Header(" Elements ")]
     [SerializeField] private ParticleSystem _moveDustVFX;
+    [SerializeField] private ParticleSystem _poofDustVFX;
     [SerializeField] private Transform _characterSpriteTransform;
     [SerializeField] private Transform _cowboyHatTransform;
 
@@ -21,6 +22,18 @@ public class PlayerAnimations : MonoBehaviour
         DetectMoveDust();
 
         ApplyTilt();
+    }
+
+
+    private void OnEnable()
+    {
+        PlayerController.OnJump += PlayPoofDustVFX;
+    }
+
+
+    private void OnDisable()
+    {
+        PlayerController.OnJump -= PlayPoofDustVFX;
     }
 
 
@@ -41,6 +54,12 @@ public class PlayerAnimations : MonoBehaviour
                 _moveDustVFX.Stop();
             }
         }
+    }
+
+
+    private void PlayPoofDustVFX()
+    {
+        _poofDustVFX.Play();
     }
 
 
