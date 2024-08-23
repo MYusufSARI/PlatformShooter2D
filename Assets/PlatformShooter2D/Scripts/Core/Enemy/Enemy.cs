@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
 
     [Header(" Data ")]
     private Movement _movement;
+    private ColorChanger _colorChanger;
 
 
 
@@ -20,6 +21,7 @@ public class Enemy : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _movement = GetComponent<Movement>();
+        _colorChanger = GetComponent<ColorChanger>();
     }
 
 
@@ -28,6 +30,12 @@ public class Enemy : MonoBehaviour
         StartCoroutine(ChangeDirectionRoutine());
 
         StartCoroutine(RandomJumpRoutine());
+    }
+
+
+    public void Initialize(Color color)
+    {
+        _colorChanger.SetDefaultColor(color);
     }
 
 

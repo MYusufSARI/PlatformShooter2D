@@ -54,6 +54,11 @@ public class Flash : MonoBehaviour
         foreach (SpriteRenderer sr in _spriteRenderers)
         {
             sr.material = _defaultMaterial;
+
+            if (_colorChanger)
+            {
+                _colorChanger.SetColor(_colorChanger.DefaultColor);
+            }
         }
     }
 }
