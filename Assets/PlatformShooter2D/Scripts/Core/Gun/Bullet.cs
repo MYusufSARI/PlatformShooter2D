@@ -50,6 +50,9 @@ public class Bullet : MonoBehaviour
         Knockback knockback = other.gameObject.GetComponent<Knockback>();
         knockback?.GetKnockedBack(PlayerController.Instance.transform.position, _knockbackThrust);
 
+        Flash flash = other.gameObject.GetComponent<Flash>();
+        flash?.StartFlash();
+
         _gun.ReleaseBulletFromPool(this);
     }
 }
