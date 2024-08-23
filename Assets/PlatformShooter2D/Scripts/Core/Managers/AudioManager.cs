@@ -19,7 +19,7 @@ public class AudioManager : MonoBehaviour
     private AudioSource _currentMusic;
 
 
-
+    #region Unity Methods
     private void Start()
     {
         FightMusic();
@@ -43,7 +43,9 @@ public class AudioManager : MonoBehaviour
         DiscoBallManager.OnDiscoBallHit -= DiscoBallMusic;
     }
 
+    #endregion
 
+    #region Sound Methods
     private void PlayRandomSound(SoundSO[] sounds)
     {
         if (sounds != null && sounds.Length > 0)
@@ -63,13 +65,16 @@ public class AudioManager : MonoBehaviour
         bool loop = soundSO.Loop;
         AudioMixerGroup audioMixerGroup;
 
-        if (soundSO.RandomizePitch)
-        {
-            var randomPitchModifier = Random.Range(-soundSO.RandomPitchRangeModifier, soundSO.RandomPitchRangeModifier);
+        pitch = RandomizePitch(soundSO, pitch);
+        audioMixerGroup = DetermineAudioMixerGroup(soundSO);
 
-            pitch = soundSO.Pitch + randomPitchModifier;
-        }
+        PlaySound(clip, pitch, volume, loop, audioMixerGroup);
+    }
 
+
+    private AudioMixerGroup DetermineAudioMixerGroup(SoundSO soundSO)
+    {
+        AudioMixerGroup audioMixerGroup;
         switch (soundSO.AudioType)
         {
             case SoundSO.AudioTypes.SFX:
@@ -84,7 +89,20 @@ public class AudioManager : MonoBehaviour
                 break;
         }
 
-        PlaySound(clip, pitch, volume, loop, audioMixerGroup);
+        return audioMixerGroup;
+    }
+
+
+    private static float RandomizePitch(SoundSO soundSO, float pitch)
+    {
+        if (soundSO.RandomizePitch)
+        {
+            var randomPitchModifier = Random.Range(-soundSO.RandomPitchRangeModifier, soundSO.RandomPitchRangeModifier);
+
+            pitch = soundSO.Pitch + randomPitchModifier;
+        }
+
+        return pitch;
     }
 
 
@@ -103,7 +121,13 @@ public class AudioManager : MonoBehaviour
         if (!loop)
             Destroy(soundObject, clip.length);
 
-        if(audioMixerGroup == _musicMixerGroup)
+        DetermineMusic(audioMixerGroup, audioSource);
+    }
+
+
+    private void DetermineMusic(AudioMixerGroup audioMixerGroup, AudioSource audioSource)
+    {
+        if (audioMixerGroup == _musicMixerGroup)
         {
             if (_currentMusic != null)
             {
@@ -113,8 +137,9 @@ public class AudioManager : MonoBehaviour
             _currentMusic = audioSource;
         }
     }
+    #endregion
 
-
+    #region SFX
     private void Gun_OnShoot()
     {
         PlayRandomSound(_soundsColletionsSO.GunShoot);
@@ -131,8 +156,9 @@ public class AudioManager : MonoBehaviour
     {
         PlayRandomSound(_soundsColletionsSO.Splat);
     }
+    #endregion
 
-
+    #region Music
     private void FightMusic()
     {
         PlayRandomSound(_soundsColletionsSO.FightMusic);
@@ -143,8 +169,9 @@ public class AudioManager : MonoBehaviour
     {
         PlayRandomSound(_soundsColletionsSO.DiscoParty);
 
-        var soundLenght = _soundsColletionsSO.DiscoParty[0].Clip.length;
+        var soundLength = _soundsColletionsSO.DiscoParty[0].Clip.length;
 
-        Invoke("FightMusic", soundLenght);
+        UtilsClass.RunAfterDelay(this, soundLength, FightMusic);
     }
+    #endregion
 }
