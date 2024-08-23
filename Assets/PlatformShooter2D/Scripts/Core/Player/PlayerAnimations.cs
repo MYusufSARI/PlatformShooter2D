@@ -10,10 +10,15 @@ public class PlayerAnimations : MonoBehaviour
     [SerializeField] private Transform _characterSpriteTransform;
     [SerializeField] private Transform _cowboyHatTransform;
 
+    private Rigidbody2D _rigidBody2D;
+
     [Header(" Settings ")]
     [SerializeField] private float _tiltAngle = 20f;
     [SerializeField] private float _tiltSpeed = 5f;
     [SerializeField] private float _cowboyHatModifier = 2f;
+    [SerializeField] private float _yLandVelocityCheck = -10f;
+
+    private Vector2 _velocityBeforePhysicsUpdate;
 
 
 
@@ -34,6 +39,12 @@ public class PlayerAnimations : MonoBehaviour
     private void OnDisable()
     {
         PlayerController.OnJump -= PlayPoofDustVFX;
+    }
+
+
+    private void FixedUpdate()
+    {
+        _velocityBeforePhysicsUpdate = _rigidBody2D.velocity;
     }
 
 
