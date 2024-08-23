@@ -12690,6 +12690,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveDustVFX: {fileID: 71349179}
+  _characterSpriteTransform: {fileID: 893427218}
+  _tiltAngle: 14
+  _tiltSpeed: 5
 --- !u!1 &2043640393
 GameObject:
   m_ObjectHideFlags: 0
