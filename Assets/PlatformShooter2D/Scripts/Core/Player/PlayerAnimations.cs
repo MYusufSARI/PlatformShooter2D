@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerAnimations : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerAnimations : MonoBehaviour
     [SerializeField] private Transform _cowboyHatTransform;
 
     private Rigidbody2D _rigidBody2D;
+    private CinemachineImpulseSource _impulseSource;
 
     [Header(" Settings ")]
     [SerializeField] private float _tiltAngle = 20f;
@@ -20,6 +22,13 @@ public class PlayerAnimations : MonoBehaviour
 
     private Vector2 _velocityBeforePhysicsUpdate;
 
+
+
+    private void Awake()
+    {
+        _rigidBody2D = GetComponent<Rigidbody2D>();
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
+    }
 
 
     private void Update()
@@ -45,6 +54,16 @@ public class PlayerAnimations : MonoBehaviour
     private void FixedUpdate()
     {
         _velocityBeforePhysicsUpdate = _rigidBody2D.velocity;
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (_velocityBeforePhysicsUpdate.y < _yLandVelocityCheck)
+        {
+            PlayPoofDustVFX();
+            _impulseSource.GenerateImpulse();
+        }
     }
 
 

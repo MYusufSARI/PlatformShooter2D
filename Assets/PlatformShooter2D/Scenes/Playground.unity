@@ -17631,6 +17631,7 @@ MonoBehaviour:
   _tiltAngle: 14
   _tiltSpeed: 5
   _cowboyHatModifier: 2
+  _yLandVelocityCheck: -20
 --- !u!114 &2011273902
 MonoBehaviour:
   m_ObjectHideFlags: 0
