@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1152933574801094629, guid: 4f21698fa77c74be8afd5bb9058b7c3f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 15b240c5b42d7490c89e6a29bd4a5c83, type: 2}
     - target: {fileID: 5287771884969321244, guid: 4f21698fa77c74be8afd5bb9058b7c3f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8385061951210999175, guid: 4f21698fa77c74be8afd5bb9058b7c3f, type: 3}
       propertyPath: m_Name
-      value: BaseDeathVFX
+      value: EnemyDeathVFX
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
