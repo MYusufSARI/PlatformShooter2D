@@ -5,6 +5,7 @@ using UnityEngine;
 public class DiscoBall : MonoBehaviour, IHitable
 {
     [Header(" Data ")]
+    private DiscoBallManager _discoBallManager;
     private Flash _flash;
 
 
@@ -12,11 +13,14 @@ public class DiscoBall : MonoBehaviour, IHitable
     private void Awake()
     {
         _flash = GetComponent<Flash>();
+        _discoBallManager = FindFirstObjectByType<DiscoBallManager>();
     }
 
 
     public void TakeHit()
     {
+        _discoBallManager.DiscoBallParty();
+
         _flash.StartFlash();
     }
 }
