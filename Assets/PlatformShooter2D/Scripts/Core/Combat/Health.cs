@@ -14,7 +14,7 @@ public class Health : MonoBehaviour
     private int _currentHealth;
 
     [Header(" Events ")]
-    public static Action OnDeath;
+    public Action OnDeath;
 
 
 
