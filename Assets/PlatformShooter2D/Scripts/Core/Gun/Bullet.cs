@@ -47,14 +47,11 @@ public class Bullet : MonoBehaviour
     {
         Instantiate(_bulletVFX, transform.position, Quaternion.identity);
 
-        Health health = other.gameObject.GetComponent<Health>();
-        health?.TakeDamage(_damageAmount);
+        IHitable iHitable = other.gameObject.GetComponent<IHitable>();
+        iHitable?.TakeHit();
 
-        Knockback knockback = other.gameObject.GetComponent<Knockback>();
-        knockback?.GetKnockedBack(PlayerController.Instance.transform.position, _knockbackThrust);
-
-        Flash flash = other.gameObject.GetComponent<Flash>();
-        flash?.StartFlash();
+        IDamageable iDamageable = other.gameObject.GetComponent<IDamageable>();
+        iDamageable?.TakeDamage(_damageAmount, _knockbackThrust);
 
         _gun.ReleaseBulletFromPool(this);
     }

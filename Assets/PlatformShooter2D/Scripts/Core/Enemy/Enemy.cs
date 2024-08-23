@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable
 {
     [Header(" Settings ")]
     [SerializeField] private float _jumpForce = 7f;
@@ -14,6 +14,9 @@ public class Enemy : MonoBehaviour
     [Header(" Data ")]
     private Movement _movement;
     private ColorChanger _colorChanger;
+    private Knockback _knockback;
+    private Flash _flash;
+    private Health _health;
 
 
 
@@ -22,6 +25,9 @@ public class Enemy : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody2D>();
         _movement = GetComponent<Movement>();
         _colorChanger = GetComponent<ColorChanger>();
+        _knockback = GetComponent<Knockback>();
+        _flash = GetComponent<Flash>();
+        _health = GetComponent<Health>();
     }
 
 
@@ -62,4 +68,18 @@ public class Enemy : MonoBehaviour
             _rigidBody.AddForce(jumpDirection * _jumpForce, ForceMode2D.Impulse);
         }
     }
+
+    public void TakeDamage(int damageAmount, float knockBackThrust)
+    {
+        _health.TakeDamage(damageAmount);
+        _knockback.GetKnockedBack(PlayerController.Instance.transform.position, knockBackThrust);
+
+
+    }
+
+    public void TakeHit()
+    {
+        _flash.StartFlash();
+    }
+
 }
