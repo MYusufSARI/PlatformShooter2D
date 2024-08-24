@@ -17512,8 +17512,10 @@ MonoBehaviour:
   _bulletSpawnPoint: {fileID: 710606986}
   _bulletPrefab: {fileID: -5611149099131491127, guid: 9dca18bc1fee05d488922a753a58ca8d, type: 3}
   _muzzleFlash: {fileID: 119029252}
+  _grenadePrefab: {fileID: 789477589191220236, guid: 127006601fe5d4a85af386631497d89d, type: 3}
   _gunFireCD: 0.2
   _muzzleFlashTime: 0.02
+  _grenadeShootCD: 0.8
 --- !u!95 &1414218016
 Animator:
   serializedVersion: 5
