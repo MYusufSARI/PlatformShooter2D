@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,10 @@ using Cinemachine;
 
 public class Grenade : MonoBehaviour
 {
+    public Action OnExplode;
+
     [Header(" Elements ")]
+    [SerializeField] private GameObject _explodeVFX;
     private Rigidbody2D _rigidBody;
     private CinemachineImpulseSource _impulseSource;
     private Camera _mainCamera;
@@ -24,9 +28,32 @@ public class Grenade : MonoBehaviour
     }
 
 
+    private void OnEnable()
+    {
+        OnExplode += Explosion;
+        OnExplode += GrenadeScreenShake;
+    }
+
+
+    private void OnDisable()
+    {
+        OnExplode -= Explosion;
+        OnExplode -= GrenadeScreenShake;
+    }
+
+
     private void Start()
     {
         LaunchGrenade();
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.GetComponent<Enemy>())
+        {
+            OnExplode?.Invoke();
+        }
     }
 
 
@@ -37,5 +64,18 @@ public class Grenade : MonoBehaviour
 
         _rigidBody.AddForce(directionToMouse * _launchForce, ForceMode2D.Impulse);
         _rigidBody.AddTorque(_torqueAmount, ForceMode2D.Impulse);
+    }
+
+
+    private void Explosion()
+    {
+        Instantiate(_explodeVFX, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
+
+
+    private void GrenadeScreenShake()
+    {
+        _impulseSource.GenerateImpulse();
     }
 }
