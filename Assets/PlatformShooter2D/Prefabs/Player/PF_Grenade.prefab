@@ -51,8 +51,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _explodeVFX: {fileID: 8385061951210999175, guid: 8d48dabe17bf3403baf9a4ad7fb9f5b1, type: 3}
+  _grenadeLight: {fileID: 3401237424562031979}
+  _enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
   _launchForce: 15
   _torqueAmount: 0.2
+  _explosionRadius: 3.5
+  _damageAmount: 3
+  _lightBlinkTime: 0.15
+  _totalBlinks: 3
+  _explodeTime: 3
 --- !u!212 &8316924457437442182
 SpriteRenderer:
   m_ObjectHideFlags: 0
