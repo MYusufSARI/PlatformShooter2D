@@ -11,8 +11,10 @@ public class PlayerController : MonoBehaviour
 
     [Header(" Events ")]
     public static Action OnJump;
+    public static Action OnJetpack;
 
     [Header(" Settings ")]
+    [SerializeField] private TrailRenderer _jetpackTrailRenderer;
     [SerializeField] private Transform _feetTransform;
     [SerializeField] private Vector2 _groundCheck;
     [SerializeField] private LayerMask _groundLayer;
@@ -20,8 +22,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _extraGravity = 700f;
     [SerializeField] private float _gravityDelay = 0.2f;
     [SerializeField] private float _coyoteTime = 0.5f;
+    [SerializeField] private float _jetpackTime = 0.6f;
+    [SerializeField] private float _jetpackStrength = 11f;
+
     private float _timeInAir, _coyoteTimer;
     private bool _doublejumpAvailable;
+    private Coroutine _jetpackCoroutine;
 
     [Header(" Elements ")]
     private Rigidbody2D _rigidBody;
@@ -46,12 +52,16 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         OnJump += ApplyJumpForce;
+
+        OnJetpack += StartJetpack;
     }
 
 
     private void OnDisable()
     {
         OnJump -= ApplyJumpForce;
+
+        OnJetpack -= StartJetpack;
     }
 
 
@@ -68,6 +78,8 @@ public class PlayerController : MonoBehaviour
         HandleSpriteFlip();
 
         GravityDelay();
+
+        Jetpack();
     }
 
 
@@ -197,5 +209,37 @@ public class PlayerController : MonoBehaviour
         {
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
         }
+    }
+
+
+    private void Jetpack()
+    {
+        if (!_frameInput.Jetpack || _jetpackCoroutine != null)
+            return;
+
+        OnJetpack?.Invoke();
+    }
+
+
+    private void StartJetpack()
+    {
+        _jetpackCoroutine = StartCoroutine(JetpackRoutine());
+    }
+
+
+    private IEnumerator JetpackRoutine()
+    {
+        var jetTime = 0f;
+
+        while (jetTime < _jetpackTime)
+        {
+            jetTime += Time.deltaTime;
+
+            _rigidBody.velocity = Vector2.up * _jetpackStrength;
+
+            yield return null;
+        }
+
+        _jetpackCoroutine = null;
     }
 }
