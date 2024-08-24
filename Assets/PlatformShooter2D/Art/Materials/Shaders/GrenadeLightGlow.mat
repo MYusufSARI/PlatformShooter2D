@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TealGlow
+  m_Name: GrenadeLightGlow
   m_Shader: {fileID: -6465566751694194690, guid: d3f1e93db37f5451cac3d52e874a011b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -37,7 +37,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: fb76a13ef7389204195f25940c4aa362, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -55,5 +55,5 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _Color: {r: 2.4010732, g: 7.37721, b: 6.871163, a: 1}
+    - _Color: {r: 14.148882, g: 47.937252, b: 16.894186, a: 1}
   m_BuildTextureStacks: []

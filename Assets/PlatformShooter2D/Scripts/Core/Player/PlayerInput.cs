@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour
     private InputAction _move;
     private InputAction _jump;
     private InputAction _jetpack;
+    private InputAction _grenade;
 
 
 
@@ -22,6 +23,7 @@ public class PlayerInput : MonoBehaviour
         _move = _playerInputActions.Player.Move;
         _jump = _playerInputActions.Player.Jump;
         _jetpack = _playerInputActions.Player.Jetpack;
+        _grenade = _playerInputActions.Player.Grenade;
     }
 
 
@@ -49,7 +51,8 @@ public class PlayerInput : MonoBehaviour
         {
             Move = _move.ReadValue<Vector2>(),
             Jump = _jump.WasPressedThisFrame(),
-            Jetpack = _jetpack.WasPressedThisFrame()
+            Jetpack = _jetpack.WasPressedThisFrame(),
+            Grenade = _grenade.WasPressedThisFrame()
         };
     }
 }
@@ -61,4 +64,6 @@ public struct FrameInput
     public bool Jump;
 
     public bool Jetpack;
+
+    public bool Grenade;
 }
