@@ -1,18 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Grenade : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header(" Elements ")]
+    private Rigidbody2D _rigidBody;
+    private CinemachineImpulseSource _impulseSource;
+    private Camera _mainCamera;
+
+    [Header(" Settings ")]
+    [SerializeField] private float _launchForce = 15f;
+    [SerializeField] private float _torqueAmount = 2f;
+
+
+
+    private void Awake()
     {
-        
+        _rigidBody = GetComponent<Rigidbody2D>();
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
+        _mainCamera = Camera.main;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void Start()
     {
-        
+        LaunchGrenade();
+    }
+
+
+    private void LaunchGrenade()
+    {
+        Vector2 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 directionToMouse = (mousePos - (Vector2)transform.position).normalized;
+
+        _rigidBody.AddForce(directionToMouse * _launchForce, ForceMode2D.Impulse);
+        _rigidBody.AddTorque(_torqueAmount, ForceMode2D.Impulse);
     }
 }

@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f7b56ec77554bc08f4d3e86aabeaa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _launchForce: 15
+  _torqueAmount: 0.2
 --- !u!212 &8316924457437442182
 SpriteRenderer:
   m_ObjectHideFlags: 0
