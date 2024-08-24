@@ -5,6 +5,8 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager Instance { get; private set; }
+
     [Header(" Data ")]
     [SerializeField] private SoundsCollectionsSO _soundsColletionsSO;
 
@@ -20,6 +22,14 @@ public class AudioManager : MonoBehaviour
 
 
     #region Unity Methods
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
+
+
     private void Start()
     {
         FightMusic();
@@ -29,6 +39,7 @@ public class AudioManager : MonoBehaviour
     private void OnEnable()
     {
         Gun.OnShoot += Gun_OnShoot;
+        Gun.OnGrenadeShoot += Gun_OnGrenadeShoot;
         PlayerController.OnJump += PlayerController_OnJump;
         PlayerController.OnJetpack += PlayerController_OnJetpack;
         Health.OnDeath += Health_OnDeath;
@@ -39,6 +50,7 @@ public class AudioManager : MonoBehaviour
     private void OnDisable()
     {
         Gun.OnShoot -= Gun_OnShoot;
+        Gun.OnGrenadeShoot -= Gun_OnGrenadeShoot;
         PlayerController.OnJump -= PlayerController_OnJump;
         PlayerController.OnJetpack -= PlayerController_OnJetpack;
         Health.OnDeath -= Health_OnDeath;
@@ -163,6 +175,24 @@ public class AudioManager : MonoBehaviour
     private void PlayerController_OnJetpack()
     {
         PlayRandomSound(_soundsColletionsSO.Jetpack);
+    }
+
+
+    public void Grenade_OnBeep()
+    {
+        PlayRandomSound(_soundsColletionsSO.GrenadeBeep);
+    }
+
+
+    public void Grenade_OnExplode()
+    {
+        PlayRandomSound(_soundsColletionsSO.GrenadeExplode);
+    }
+
+
+    private void Gun_OnGrenadeShoot()
+    {
+        PlayRandomSound(_soundsColletionsSO.GrenadeShoot);
     }
 
     #endregion

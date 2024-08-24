@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de1b3c17f2d6d49f5882db63e75cf014, type: 3}
-  m_Name: FightMusic
+  m_Name: GrenadeExplode
   m_EditorClassIdentifier: 
-  AudioType: 1
-  Clip: {fileID: 8300000, guid: d97c55918a11b4dafa026e4895bc16f4, type: 3}
-  Loop: 1
+  AudioType: 0
+  Clip: {fileID: 8300000, guid: 1ded9309a09c841bf9a1e6e417f9f8b6, type: 3}
+  Loop: 0
   RandomizePitch: 0
   RandomPitchRangeModifier: 0.1
   Volume: 0.8
