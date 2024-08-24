@@ -30,6 +30,7 @@ public class AudioManager : MonoBehaviour
     {
         Gun.OnShoot += Gun_OnShoot;
         PlayerController.OnJump += PlayerController_OnJump;
+        PlayerController.OnJetpack += PlayerController_OnJetpack;
         Health.OnDeath += Health_OnDeath;
         DiscoBallManager.OnDiscoBallHit += DiscoBallMusic;
     }
@@ -39,6 +40,7 @@ public class AudioManager : MonoBehaviour
     {
         Gun.OnShoot -= Gun_OnShoot;
         PlayerController.OnJump -= PlayerController_OnJump;
+        PlayerController.OnJetpack -= PlayerController_OnJetpack;
         Health.OnDeath -= Health_OnDeath;
         DiscoBallManager.OnDiscoBallHit -= DiscoBallMusic;
     }
@@ -156,6 +158,13 @@ public class AudioManager : MonoBehaviour
     {
         PlayRandomSound(_soundsColletionsSO.Splat);
     }
+
+
+    private void PlayerController_OnJetpack()
+    {
+        PlayRandomSound(_soundsColletionsSO.Jetpack);
+    }
+
     #endregion
 
     #region Music

@@ -22,7 +22,7 @@ public class SoundSO : ScriptableObject
     [Range(0f,1f)]
     public float RandomPitchRangeModifier = 0.1f;
 
-    [Range(0.1f, 2f)]
+    [Range(0.1f, 4f)]
     public float Volume = 1f;
 
     [Range(0.1f, 3f)]
