@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5287771884969321244, guid: 4f21698fa77c74be8afd5bb9058b7c3f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 17.62
       objectReference: {fileID: 0}
     - target: {fileID: 5287771884969321244, guid: 4f21698fa77c74be8afd5bb9058b7c3f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.53
       objectReference: {fileID: 0}
     - target: {fileID: 5287771884969321244, guid: 4f21698fa77c74be8afd5bb9058b7c3f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -48,9 +48,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7019875464787467605, guid: 4f21698fa77c74be8afd5bb9058b7c3f, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7019875464787467605, guid: 4f21698fa77c74be8afd5bb9058b7c3f, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.28627452
+      objectReference: {fileID: 0}
+    - target: {fileID: 7019875464787467605, guid: 4f21698fa77c74be8afd5bb9058b7c3f, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.65882355
+      objectReference: {fileID: 0}
+    - target: {fileID: 7019875464787467605, guid: 4f21698fa77c74be8afd5bb9058b7c3f, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.9098039
+      objectReference: {fileID: 0}
     - target: {fileID: 8385061951210999175, guid: 4f21698fa77c74be8afd5bb9058b7c3f, type: 3}
       propertyPath: m_Name
-      value: BaseDeathVFX
+      value: PlayerDeathVFX
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
