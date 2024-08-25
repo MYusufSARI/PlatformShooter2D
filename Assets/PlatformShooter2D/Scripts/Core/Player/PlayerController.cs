@@ -92,6 +92,14 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void OnDestroy()
+    {
+        Fade fade = FindFirstObjectByType<Fade>();
+
+        fade?.FadeInAndOut();
+    }
+
+
     public bool IsFacingRight()
     {
         return transform.eulerAngles.y == 0;

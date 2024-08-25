@@ -33,3 +33,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b9ccc1c505d144fcc8344ea01cd856c9, type: 2}
   PlayerHit:
   - {fileID: 11400000, guid: 5ee3f9645e05a4514a7e31ac19b0340d, type: 2}
+  Megakill:
+  - {fileID: 11400000, guid: e712af11e897542fbae2a8de7aa74d22, type: 2}
