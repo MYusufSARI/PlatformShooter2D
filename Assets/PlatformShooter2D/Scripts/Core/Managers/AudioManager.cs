@@ -42,7 +42,7 @@ public class AudioManager : MonoBehaviour
         Gun.OnGrenadeShoot += Gun_OnGrenadeShoot;
         PlayerController.OnJump += PlayerController_OnJump;
         PlayerController.OnJetpack += PlayerController_OnJetpack;
-        Health.OnDeath += Health_OnDeath;
+        Health.OnDeath += HandleDeath;
         DiscoBallManager.OnDiscoBallHit += DiscoBallMusic;
     }
 
@@ -53,7 +53,7 @@ public class AudioManager : MonoBehaviour
         Gun.OnGrenadeShoot -= Gun_OnGrenadeShoot;
         PlayerController.OnJump -= PlayerController_OnJump;
         PlayerController.OnJetpack -= PlayerController_OnJetpack;
-        Health.OnDeath -= Health_OnDeath;
+        Health.OnDeath -= HandleDeath;
         DiscoBallManager.OnDiscoBallHit -= DiscoBallMusic;
     }
 
@@ -172,6 +172,12 @@ public class AudioManager : MonoBehaviour
     }
 
 
+    private void Health_OnDeath()
+    {
+        PlayRandomSound(_soundsColletionsSO.Splat);
+    }
+
+
     private void PlayerController_OnJetpack()
     {
         PlayRandomSound(_soundsColletionsSO.Jetpack);
@@ -201,6 +207,12 @@ public class AudioManager : MonoBehaviour
         PlayRandomSound(_soundsColletionsSO.PlayerHit);
     }
 
+
+    private void AudioManager_Megakill()
+    {
+        PlayRandomSound(_soundsColletionsSO.Megakill);
+    }
+
     #endregion
 
     #region Music
@@ -218,5 +230,45 @@ public class AudioManager : MonoBehaviour
 
         UtilsClass.RunAfterDelay(this, soundLength, FightMusic);
     }
+    #endregion
+
+    #region Custom SFX Logic
+
+    private List<Health> _deathList = new List<Health>();
+    private Coroutine _deathCoroutine;
+
+    private void HandleDeath(Health health)
+    {
+        bool isEnemy = health.GetComponent<Enemy>();
+
+        if (isEnemy)
+        {
+            _deathList.Add(health);
+        }
+
+        if (_deathCoroutine ==null)
+        {
+            _deathCoroutine = StartCoroutine(DeathWindowRoutine());
+        }
+    }
+
+
+    private IEnumerator DeathWindowRoutine()
+    {
+        yield return null;
+
+        var megaKillAmount = 3;
+
+        if (_deathList.Count >= megaKillAmount)
+        {
+            AudioManager_Megakill();
+        }
+
+        Health_OnDeath();
+
+        _deathList.Clear();
+        _deathCoroutine = null;
+    }
+
     #endregion
 }
