@@ -57,6 +57,8 @@ MonoBehaviour:
   _jumpForce: 7
   _jumpInterval: 4
   _changeDirectionInterval: 3
+  _damageAmount: 1
+  _knockbackThrust: 25
 --- !u!114 &2931160403932860084
 MonoBehaviour:
   m_ObjectHideFlags: 0

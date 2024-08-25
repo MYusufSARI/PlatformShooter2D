@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _jumpForce = 7f;
     [SerializeField] private float _jumpInterval = 4f;
     [SerializeField] private float _changeDirectionInterval = 3f;
+    [SerializeField] private int _damageAmount = 1;
+    [SerializeField] private float _knockbackThrust = 25f;
 
     [Header(" Elements ")]
     private Rigidbody2D _rigidBody;
@@ -31,6 +33,28 @@ public class Enemy : MonoBehaviour
         StartCoroutine(ChangeDirectionRoutine());
 
         StartCoroutine(RandomJumpRoutine());
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        PlayerController player = other.gameObject.GetComponent<PlayerController>();
+
+        if (!player)
+            return;
+
+        Movement playerMovement = player.GetComponent<Movement>();
+
+        if (playerMovement.CanMove)
+        {
+            IHitable iHitable = other.gameObject.GetComponent<IHitable>();
+            iHitable?.TakeHit();
+
+            IDamageable iDamageable = other.gameObject.GetComponent<IDamageable>();
+            iDamageable?.TakeDamage(transform.position, _damageAmount, _knockbackThrust);
+
+            AudioManager.Instance.Enemy_OnPlayerHit();
+        }
     }
 
 

@@ -59,11 +59,10 @@ public class Health : MonoBehaviour, IDamageable
     }
 
 
-    public void TakeDamage(int damageAmount, float knockBackThrust)
+    public void TakeDamage(Vector2 damageSourceDir ,int damageAmount, float knockBackThrust)
     {
         _health.TakeDamage(damageAmount);
-        _knockback.GetKnockedBack(PlayerController.Instance.transform.position, knockBackThrust);
-
+        _knockback.GetKnockedBack(damageSourceDir, knockBackThrust);
 
     }
 

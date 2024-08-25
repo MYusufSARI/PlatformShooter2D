@@ -14,10 +14,10 @@ public class PlayerController : MonoBehaviour
     public static Action OnJetpack;
 
     [Header(" Settings ")]
-    [SerializeField] private TrailRenderer _jetpackTrailRenderer;
+
     [SerializeField] private Transform _feetTransform;
     [SerializeField] private Vector2 _groundCheck;
-    [SerializeField] private LayerMask _groundLayer;
+
     [SerializeField] private float _jumpStrength = 7f;
     [SerializeField] private float _extraGravity = 700f;
     [SerializeField] private float _gravityDelay = 0.2f;
@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
     private Coroutine _jetpackCoroutine;
 
     [Header(" Elements ")]
+    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private TrailRenderer _jetpackTrailRenderer;
+
     private Rigidbody2D _rigidBody;
 
     [Header(" Data ")]
