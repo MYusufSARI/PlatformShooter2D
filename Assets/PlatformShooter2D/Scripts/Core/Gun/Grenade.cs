@@ -123,7 +123,7 @@ public class Grenade : MonoBehaviour
             yield return new WaitForSeconds(_explodeTime / _totalBlinks);
 
             OnBeep?.Invoke();
-            
+
             yield return new WaitForSeconds(_lightBlinkTime);
             _grenadeLight.SetActive(false);
         }
