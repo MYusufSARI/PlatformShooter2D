@@ -403,6 +403,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6268760036117261263, guid: 0aaa84a1926c546d1a1b5dd7204433be, type: 3}
+      propertyPath: _maxFallSpeedVelocity
+      value: -25
+      objectReference: {fileID: 0}
     - target: {fileID: 8331709402670676355, guid: 0aaa84a1926c546d1a1b5dd7204433be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.05
@@ -741,7 +745,7 @@ MonoBehaviour:
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
   m_UpdateMethod: 0
-  m_BlendUpdateMethod: 1
+  m_BlendUpdateMethod: 0
   m_DefaultBlend:
     m_Style: 5
     m_Time: 2
@@ -1518,6 +1522,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8331709402670676355, guid: 0aaa84a1926c546d1a1b5dd7204433be, type: 3}
   m_PrefabInstance: {fileID: 307413072}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &981689858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 981689859}
+  m_Layer: 0
+  m_Name: ' '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &981689859
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981689858}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &994124714
 GameObject:
   m_ObjectHideFlags: 0
@@ -7616,9 +7651,9 @@ MonoBehaviour:
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
   m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
+  m_SoftZoneHeight: 0.28
   m_BiasX: 0
-  m_BiasY: 0
+  m_BiasY: -0.177
   m_CenterOnActivate: 1
   m_GroupFramingMode: 2
   m_AdjustmentMode: 0
@@ -8993,3 +9028,4 @@ SceneRoots:
   - {fileID: 1959481247}
   - {fileID: 2009551272}
   - {fileID: 1496034600}
+  - {fileID: 981689859}
